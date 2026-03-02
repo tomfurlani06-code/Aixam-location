@@ -6,116 +6,118 @@
 <title>Aixam Location Premium</title>
 
 <style>
-
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700&display=swap');
 
-body {
-    margin:0;
-    font-family: 'Montserrat', sans-serif;
-    background:#0f0f0f;
-    color:white;
-    overflow-x:hidden;
+body{
+margin:0;
+font-family:'Montserrat',sans-serif;
+background:#0f0f0f;
+color:white;
 }
 
-header {
-    background:black;
-    padding:20px;
-    text-align:center;
-    box-shadow:0 0 20px red;
+header{
+background:black;
+padding:20px;
+text-align:center;
+box-shadow:0 0 20px red;
 }
 
-header img {
-    height:50px;
-    animation: fadeIn 1.5s ease-in-out;
+header img{
+height:60px;
 }
 
-section {
-    display:none;
-    padding:50px 20px;
-    max-width:1200px;
-    margin:auto;
+.hero{
+text-align:center;
+padding:40px 20px;
+background:linear-gradient(to right,#000,#400);
 }
 
-.active {
-    display:block;
-    animation: fadeIn 0.6s ease-in-out;
+section{
+display:none;
+padding:50px 20px;
+max-width:1200px;
+margin:auto;
 }
 
-h2 {
-    text-align:center;
-    margin-bottom:30px;
+.active{
+display:block;
+animation:fadeIn .5s ease-in-out;
 }
 
-.modeles {
-    display:flex;
-    flex-wrap:wrap;
-    gap:25px;
-    justify-content:center;
+.modeles{
+display:flex;
+flex-wrap:wrap;
+gap:25px;
+justify-content:center;
 }
 
-.card {
-    background:#1b1b1b;
-    width:260px;
-    border-radius:15px;
-    overflow:hidden;
-    transition:0.3s;
-    box-shadow:0 0 10px rgba(255,0,0,0.2);
+.card{
+background:#1c1c1c;
+width:260px;
+border-radius:15px;
+overflow:hidden;
+transition:.3s;
+box-shadow:0 0 10px rgba(255,0,0,.3);
 }
 
-.card:hover {
-    transform:translateY(-8px);
-    box-shadow:0 0 20px red;
+.card:hover{
+transform:translateY(-8px);
+box-shadow:0 0 20px red;
 }
 
-.card img {
-    width:100%;
-    height:160px;
-    object-fit:cover;
+.card img{
+width:100%;
+height:170px;
+object-fit:cover;
 }
 
-.card-content {
-    padding:15px;
-    text-align:center;
+.card-content{
+padding:15px;
+text-align:center;
 }
 
-button {
-    background:red;
-    border:none;
-    padding:10px 15px;
-    color:white;
-    cursor:pointer;
-    border-radius:6px;
-    margin-top:10px;
-    font-weight:bold;
+button{
+background:red;
+border:none;
+padding:10px 15px;
+color:white;
+cursor:pointer;
+border-radius:6px;
+font-weight:bold;
+margin:10px 5px;
 }
 
-input {
-    padding:10px;
-    margin:10px 0;
-    width:100%;
-    border-radius:5px;
-    border:none;
+input{
+padding:10px;
+margin:10px 0;
+width:100%;
+border-radius:5px;
+border:none;
 }
 
-.resume {
-    background:#1e1e1e;
-    padding:20px;
-    border-radius:10px;
-    margin-top:20px;
+.resume{
+background:#1e1e1e;
+padding:20px;
+border-radius:10px;
+margin-top:20px;
 }
 
-.progress {
-    text-align:center;
-    margin:20px;
-    font-weight:bold;
-    color:red;
+.progress{
+text-align:center;
+margin:20px;
+font-weight:bold;
+color:red;
 }
 
-@keyframes fadeIn {
-    from {opacity:0; transform:translateY(10px);}
-    to {opacity:1; transform:translateY(0);}
+.nav-buttons{
+margin-top:20px;
+text-align:center;
 }
 
+@keyframes fadeIn{
+from{opacity:0;transform:translateY(10px);}
+to{opacity:1;transform:translateY(0);}
+}
 </style>
 </head>
 
@@ -125,30 +127,18 @@ input {
 <img src="https://upload.wikimedia.org/wikipedia/commons/4/4e/Aixam_logo.svg">
 </header>
 
+<div class="hero">
+<h1>Location Officielle Aixam</h1>
+<p>Louez dès 14 ans - Simple - Rapide</p>
+</div>
+
 <div class="progress">Étape 1 / 3</div>
 
 <!-- ETAPE 1 -->
 <section id="etape1" class="active">
-<h2>Choisissez votre modèle Aixam</h2>
+<h2>Choisissez votre modèle</h2>
 
-<div class="modeles">
-
-<script>
-const gamme = [
-{nom:"Minauto Access", prix:25, img:"https://www.aixam.com/sites/default/files/styles/vehicle_thumbnail/public/2023-09/minauto-access.png"},
-{nom:"Minauto GT", prix:28, img:"https://www.aixam.com/sites/default/files/styles/vehicle_thumbnail/public/2023-09/minauto-gt.png"},
-{nom:"City Pack", prix:30, img:"https://www.aixam.com/sites/default/files/styles/vehicle_thumbnail/public/2023-09/city-pack.png"},
-{nom:"City Sport", prix:33, img:"https://www.aixam.com/sites/default/files/styles/vehicle_thumbnail/public/2023-09/city-sport.png"},
-{nom:"Coupé Sport", prix:36, img:"https://www.aixam.com/sites/default/files/styles/vehicle_thumbnail/public/2023-09/coupe-sport.png"},
-{nom:"Coupé GTI", prix:40, img:"https://www.aixam.com/sites/default/files/styles/vehicle_thumbnail/public/2023-09/coupe-gti.png"},
-{nom:"Crossover Premium", prix:42, img:"https://www.aixam.com/sites/default/files/styles/vehicle_thumbnail/public/2023-09/crossover.png"},
-{nom:"e-City Sport (électrique)", prix:45, img:"https://www.aixam.com/sites/default/files/styles/vehicle_thumbnail/public/2023-09/ecity-sport.png"}
-];
-</script>
-
-<div id="container"></div>
-
-</div>
+<div class="modeles" id="container"></div>
 </section>
 
 <!-- ETAPE 2 -->
@@ -156,16 +146,17 @@ const gamme = [
 <h2>Choisissez vos dates</h2>
 <p id="modeleInfo"></p>
 
-<label>Date début</label>
 <input type="date" id="dateDebut">
-
-<label>Date fin</label>
 <input type="date" id="dateFin">
 
 <button onclick="calculer()">Calculer</button>
 
 <div class="resume" id="resume"></div>
-<button onclick="allerEtape3()">Continuer</button>
+
+<div class="nav-buttons">
+<button onclick="changerEtape('etape1',1)">⬅ Retour</button>
+<button onclick="allerEtape3()">Continuer ➡</button>
+</div>
 </section>
 
 <!-- ETAPE 3 -->
@@ -174,20 +165,33 @@ const gamme = [
 
 <div class="resume" id="recap"></div>
 
-<h3>Vos informations</h3>
 <input type="text" placeholder="Nom">
 <input type="email" placeholder="Email">
 <input type="tel" placeholder="Téléphone">
 
+<div class="nav-buttons">
+<button onclick="changerEtape('etape2',2)">⬅ Retour</button>
 <button onclick="envoyer()">Envoyer la demande</button>
+</div>
 </section>
 
 <script>
 
+const gamme = [
+{nom:"Minauto Access", prix:25, img:"https://source.unsplash.com/600x400/?small,city,car"},
+{nom:"Minauto GT", prix:28, img:"https://source.unsplash.com/600x400/?compact,car"},
+{nom:"City Pack", prix:30, img:"https://source.unsplash.com/600x400/?modern,compact,car"},
+{nom:"City Sport", prix:33, img:"https://source.unsplash.com/600x400/?sport,city,car"},
+{nom:"Coupé Sport", prix:36, img:"https://source.unsplash.com/600x400/?sport,compact,car"},
+{nom:"Coupé GTI", prix:40, img:"https://source.unsplash.com/600x400/?sport,mini,car"},
+{nom:"Crossover Premium", prix:42, img:"https://source.unsplash.com/600x400/?mini,suv"},
+{nom:"e-City Sport", prix:45, img:"https://source.unsplash.com/600x400/?electric,compact,car"}
+];
+
 const container = document.getElementById("container");
 
-gamme.forEach(v => {
-container.innerHTML += `
+gamme.forEach(v=>{
+container.innerHTML+=`
 <div class="card">
 <img src="${v.img}">
 <div class="card-content">
@@ -199,67 +203,58 @@ container.innerHTML += `
 `;
 });
 
-let modeleChoisi = "";
-let prixJournalier = 0;
-let totalFinal = 0;
-let joursFinal = 0;
+let modeleChoisi="";
+let prixJournalier=0;
+let totalFinal=0;
+let joursFinal=0;
 
-function choisirModele(modele, prix){
-modeleChoisi = modele;
-prixJournalier = prix;
-document.getElementById("modeleInfo").innerText =
-modeleChoisi + " - " + prixJournalier + "€ / jour";
+function choisirModele(modele,prix){
+modeleChoisi=modele;
+prixJournalier=prix;
+document.getElementById("modeleInfo").innerText=
+modeleChoisi+" - "+prixJournalier+"€ / jour";
 changerEtape("etape2",2);
 }
 
 function calculer(){
-const debut = new Date(document.getElementById("dateDebut").value);
-const fin = new Date(document.getElementById("dateFin").value);
+const debut=new Date(document.getElementById("dateDebut").value);
+const fin=new Date(document.getElementById("dateFin").value);
 
-if(!document.getElementById("dateDebut").value || !document.getElementById("dateFin").value){
-alert("Veuillez choisir les dates.");
+if(!document.getElementById("dateDebut").value||!document.getElementById("dateFin").value){
+alert("Choisissez les dates.");
 return;
 }
 
-const diff = (fin - debut) / (1000*3600*24);
+const diff=(fin-debut)/(1000*3600*24);
+if(diff<=0){alert("Date invalide.");return;}
 
-if(diff <= 0){
-alert("Date invalide.");
-return;
-}
+joursFinal=diff;
+totalFinal=diff*prixJournalier;
 
-joursFinal = diff;
-totalFinal = diff * prixJournalier;
-
-document.getElementById("resume").innerHTML =
-"Durée : " + joursFinal + " jours<br>Total : " + totalFinal + "€";
+document.getElementById("resume").innerHTML=
+"Durée : "+joursFinal+" jours<br>Total : "+totalFinal+"€";
 }
 
 function allerEtape3(){
-if(totalFinal === 0){
-alert("Calculez le prix avant de continuer.");
-return;
-}
+if(totalFinal===0){alert("Calculez le prix.");return;}
 
-document.getElementById("recap").innerHTML =
-"Modèle : " + modeleChoisi +
-"<br>Durée : " + joursFinal + " jours" +
-"<br>Total : " + totalFinal + "€";
+document.getElementById("recap").innerHTML=
+"Modèle : "+modeleChoisi+
+"<br>Durée : "+joursFinal+" jours"+
+"<br>Total : "+totalFinal+"€";
 
 changerEtape("etape3",3);
 }
 
 function envoyer(){
-alert("Votre demande a été envoyée !");
+alert("Demande envoyée !");
 location.reload();
 }
 
-function changerEtape(id, step){
-document.querySelectorAll("section").forEach(section=>{
-section.classList.remove("active");
-});
+function changerEtape(id,step){
+document.querySelectorAll("section").forEach(s=>s.classList.remove("active"));
 document.getElementById(id).classList.add("active");
-document.querySelector(".progress").innerText = "Étape " + step + " / 3";
+document.querySelector(".progress").innerText="Étape "+step+" / 3";
 }
 
 </script>
