@@ -1,102 +1,260 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Aixam Jean Cauvin Mobilités - Grasse</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Location voiture sans permis Aixam à Grasse – Jean Cauvin Mobilités</title>
+<meta name="description" content="Location de voitures sans permis Aixam à Grasse (06130). Choisissez votre modèle, sélectionnez vos dates, obtenez le prix et envoyez votre demande. Concession Jean Cauvin Mobilités." />
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" />
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700&display=swap');
 
+html { scroll-behavior:smooth; }
 body{
-margin:0;
-font-family:'Montserrat',sans-serif;
-background:#0f0f0f;
-color:white;
+  margin:0;
+  font-family:'Montserrat',sans-serif;
+  background:#0f0f0f;
+  color:white;
 }
 
+/* HEADER */
 header{
-background:#000;
-padding:25px 20px;
-text-align:center;
-box-shadow:0 0 25px rgba(255,0,0,0.5);
+  background:#000;
+  padding:25px 20px;
+  text-align:center;
+  box-shadow:0 0 25px rgba(255,0,0,0.5);
+}
+header img{
+  height:65px;
+  margin-bottom:10px;
+}
+.concession-title{ font-size:22px; font-weight:700; }
+.concession-sub{ font-size:14px; color:#bbb; }
+
+/* PAGES */
+.page{
+  display:none;
+  padding:60px 20px;
+  max-width:1100px;
+  margin:auto;
+  animation:fade .35s ease;
+}
+.page.active{ display:block; }
+
+@keyframes fade{
+  from{ opacity:0; transform:translateY(8px); }
+  to{ opacity:1; transform:translateY(0); }
 }
 
-header img{height:65px;margin-bottom:10px;}
-.concession-title{font-size:22px;font-weight:700;}
-.concession-sub{font-size:14px;color:#bbb;}
-
-.page{display:none;padding:60px 20px;max-width:1100px;margin:auto;}
-.page.active{display:block;}
-
-.modeles{
-display:flex;
-flex-wrap:wrap;
-gap:25px;
-justify-content:center;
+/* HERO */
+.hero{
+  text-align:center;
+  padding:70px 20px;
+  background:linear-gradient(to right,#000,#500);
+}
+.hero h2{
+  font-size:30px;
+  margin:0;
+}
+.hero p{
+  color:#ccc;
+  margin:15px 0 25px;
+}
+.hero-actions{
+  display:flex;
+  gap:12px;
+  justify-content:center;
+  flex-wrap:wrap;
 }
 
-.card{
-background:#1c1c1c;
-width:260px;
-border-radius:15px;
-overflow:hidden;
-transition:.3s;
-cursor:pointer;
-box-shadow:0 0 10px rgba(255,0,0,.3);
+/* REASSURANCE */
+.reassurance{
+  background:#111;
+  border-top:1px solid rgba(255,255,255,.06);
+  border-bottom:1px solid rgba(255,255,255,.06);
+  text-align:center;
+  padding:14px 12px;
+  color:#e9e9e9;
+  font-weight:500;
 }
 
-.card:hover{
-transform:translateY(-8px);
-box-shadow:0 0 20px red;
-}
-
-.card img{
-width:100%;
-height:170px;
-object-fit:cover;
-}
-
-.card-content{
-padding:15px;
-text-align:center;
-}
-
-input{
-padding:12px;
-margin:10px 0;
-width:100%;
-border-radius:6px;
-border:none;
-}
-
+/* BUTTONS */
 button{
-background:red;
-border:none;
-padding:12px 20px;
-color:white;
-cursor:pointer;
-border-radius:6px;
-font-weight:bold;
-margin-top:10px;
+  background:red;
+  border:none;
+  padding:12px 20px;
+  color:white;
+  cursor:pointer;
+  border-radius:6px;
+  font-weight:700;
+  transition:0.25s;
+}
+button:hover{ opacity:0.85; }
+button:disabled{
+  background:#555;
+  cursor:not-allowed;
+  opacity:0.9;
+}
+.btn-secondary{
+  background:#1c1c1c;
+  border:1px solid rgba(255,255,255,.12);
 }
 
+/* SECTIONS */
+.section{
+  padding:55px 0;
+}
+.section h2{
+  text-align:center;
+  margin:0 0 22px;
+}
+.section p{
+  color:#ccc;
+}
+
+/* MODELES */
+.modeles{
+  display:flex;
+  flex-wrap:wrap;
+  gap:25px;
+  justify-content:center;
+}
+.card{
+  background:#1c1c1c;
+  width:260px;
+  border-radius:15px;
+  overflow:hidden;
+  transition:.3s;
+  cursor:pointer;
+  box-shadow:0 0 10px rgba(255,0,0,.3);
+}
+.card:hover{
+  transform:translateY(-8px);
+  box-shadow:0 0 20px red;
+}
+.card img{
+  width:100%;
+  height:170px;
+  object-fit:cover;
+}
+.card-content{
+  padding:15px;
+  text-align:center;
+}
+.card-content h3{ margin:10px 0 6px; }
+.card-content p{ margin:0; color:#ddd; }
+
+/* FORM */
+input{
+  padding:12px;
+  margin:10px 0;
+  width:100%;
+  border-radius:6px;
+  border:none;
+  outline:none;
+  background:#fff;
+  color:#111;
+}
+.form-wrap{
+  max-width:520px;
+  margin:0 auto;
+}
+
+/* RESUME BOX */
 .resume{
-background:#1e1e1e;
-padding:20px;
-border-radius:10px;
-margin-top:20px;
+  background:#1e1e1e;
+  padding:20px;
+  border-radius:10px;
+  margin-top:20px;
+  border:1px solid rgba(255,255,255,.08);
+}
+.small-note{
+  font-size:13px;
+  color:#aaa;
+  margin-top:10px;
 }
 
+/* WHY */
+.pourquoi{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:18px;
+  text-align:center;
+}
+.bloc{
+  background:#1c1c1c;
+  padding:18px;
+  border-radius:12px;
+  border:1px solid rgba(255,255,255,.06);
+}
+
+/* FAQ */
+.faq{
+  max-width:900px;
+  margin:0 auto;
+  text-align:left;
+}
+.faq-item{
+  background:#151515;
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:12px;
+  padding:16px 16px;
+  margin:12px 0;
+}
+.faq-item h3{
+  margin:0 0 8px;
+  font-size:16px;
+}
+.faq-item p{
+  margin:0;
+  color:#cfcfcf;
+  line-height:1.4;
+}
+
+/* MAP */
+.map-section{
+  background:#111;
+  padding:55px 20px;
+  border-top:1px solid rgba(255,255,255,.06);
+}
+.map-wrap{
+  max-width:1100px;
+  margin:0 auto;
+  text-align:center;
+}
+.map-actions{
+  display:flex;
+  gap:12px;
+  justify-content:center;
+  flex-wrap:wrap;
+  margin:18px 0 22px;
+}
+iframe{
+  width:100%;
+  height:350px;
+  border-radius:15px;
+  border:0;
+  box-shadow:0 0 20px rgba(255,0,0,0.22);
+}
+
+/* FOOTER */
 footer{
-background:#000;
-padding:30px;
-text-align:center;
-color:#aaa;
-margin-top:40px;
+  background:#000;
+  padding:28px 16px;
+  text-align:center;
+  color:#aaa;
+  font-size:14px;
+}
+
+/* PROGRESS */
+.progress{
+  text-align:center;
+  margin:18px 0 0;
+  color:#ff3b3b;
+  font-weight:700;
 }
 </style>
 </head>
@@ -104,162 +262,291 @@ margin-top:40px;
 <body>
 
 <header>
-<img src="logo-aixam.png">
-<div class="concession-title">JEAN CAUVIN MOBILITÉS</div>
-<div class="concession-sub">Concession Officielle Aixam – Grasse</div>
+  <img src="logo-aixam.png" alt="Logo Aixam">
+  <div class="concession-title">JEAN CAUVIN MOBILITÉS</div>
+  <div class="concession-sub">Concession Officielle Aixam – Grasse</div>
 </header>
+
+<div class="hero">
+  <h2>Location Véhicules Sans Permis Aixam</h2>
+  <p>Louez dès 14 ans, choisissez votre modèle et envoyez votre demande en quelques minutes.</p>
+  <div class="hero-actions">
+    <button onclick="scrollToModeles()">Choisir mon véhicule</button>
+    <a href="tel:0624224960" style="text-decoration:none;">
+      <button class="btn-secondary">Contacter : 06 24 22 49 60</button>
+    </a>
+  </div>
+</div>
+
+<div class="reassurance">
+  Louable dès 14 ans — Sans permis B — Véhicules révisés — Service local à Grasse
+</div>
+
+<div class="progress" id="progress">Étape 1 / 3</div>
 
 <!-- PAGE 1 -->
 <div id="page1" class="page active">
-<h2 style="text-align:center;">Choisissez votre véhicule</h2>
-<div class="modeles" id="container"></div>
+  <div class="section" id="modeles">
+    <h2>Nos Modèles</h2>
+    <p style="text-align:center; margin:0 0 24px;">Cliquez sur un véhicule pour choisir vos dates et obtenir votre prix.</p>
+    <div class="modeles" id="container"></div>
+  </div>
+
+  <div class="section">
+    <h2>Pourquoi louer chez nous ?</h2>
+    <div class="pourquoi">
+      <div class="bloc">Concession Officielle Aixam</div>
+      <div class="bloc">Véhicules révisés et prêts à partir</div>
+      <div class="bloc">Service client local à Grasse</div>
+      <div class="bloc">Accompagnement simple et rapide</div>
+    </div>
+  </div>
+
+  <div class="section" style="text-align:center;">
+    <h2>Avis Clients</h2>
+    <p>Consultez les avis vérifiés de nos clients sur Google.</p>
+    <div class="map-actions">
+      <a href="https://www.google.com/search?q=Aixam+Jean+Cauvin+Mobilit%C3%A9s+Grasse+avis" target="_blank" style="text-decoration:none;">
+        <button>Voir les avis Google</button>
+      </a>
+      <a href="https://www.google.com/maps/search/?api=1&query=Jean+Cauvin+Mobilit%C3%A9s+185+Route+de+Cannes+06130+Grasse" target="_blank" style="text-decoration:none;">
+        <button class="btn-secondary">Ouvrir la fiche Google Maps</button>
+      </a>
+    </div>
+    <div class="small-note">
+      Adresse et contact : 185 Route de Cannes, 06130 Grasse — 06 24 22 49 60. :contentReference[oaicite:1]{index=1}
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>FAQ</h2>
+    <div class="faq">
+      <div class="faq-item">
+        <h3>Faut-il un permis pour louer ?</h3>
+        <p>La conduite est possible dès 14 ans avec la catégorie AM (ex-BSR), selon votre situation.</p>
+      </div>
+      <div class="faq-item">
+        <h3>L’assurance est-elle incluse ?</h3>
+        <p>Oui, l’assurance de base est incluse. Les options se voient directement en concession si besoin.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Quel est le montant de la caution ?</h3>
+        <p>La caution dépend du modèle et de la durée. Elle est confirmée au moment de la réservation en concession.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Où se fait la remise du véhicule ?</h3>
+        <p>La remise se fait directement à la concession, à Grasse (185 Route de Cannes, 06130).</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- LOCALISATION -->
+  <div class="map-section">
+    <div class="map-wrap">
+      <h2>Nous localiser</h2>
+      <p style="margin:8px 0 0;">185 Route de Cannes, 06130 Grasse</p>
+      <p style="margin:10px 0 0;">
+        Téléphone :
+        <a href="tel:0624224960" style="color:red; font-weight:700; text-decoration:none;">06 24 22 49 60</a>
+      </p>
+
+      <div class="map-actions">
+        <a href="https://www.google.com/maps/search/?api=1&query=185+Route+de+Cannes+06130+Grasse" target="_blank" style="text-decoration:none;">
+          <button>Ouvrir dans Google Maps</button>
+        </a>
+
+        <a href="https://www.google.com/search?q=Aixam+Jean+Cauvin+Mobilit%C3%A9s+Grasse+avis" target="_blank" style="text-decoration:none;">
+          <button class="btn-secondary">Accéder aux avis Google</button>
+        </a>
+      </div>
+
+      <iframe src="https://www.google.com/maps?q=185+Route+de+Cannes+06130+Grasse&output=embed" loading="lazy"></iframe>
+      <div class="small-note">Coordonnées issues du réseau Aixam et du site de la concession. :contentReference[oaicite:2]{index=2}</div>
+    </div>
+  </div>
 </div>
 
 <!-- PAGE 2 -->
 <div id="page2" class="page">
-<h2 id="modeleTitre"></h2>
-<input type="text" id="dateRange" placeholder="Sélectionnez vos dates">
-<button onclick="calculer()">Calculer le prix</button>
-<div class="resume" id="resume"></div>
-<button onclick="goForm()">Continuer</button>
-<button onclick="changePage(1)">⬅ Retour</button>
+  <div class="section" style="text-align:center;">
+    <h2 id="modeleTitre">Choisissez votre période</h2>
+    <div class="form-wrap">
+      <p id="modeleInfo" style="color:#ccc; margin-top:0;"></p>
+
+      <input type="text" id="dateRange" placeholder="Sélectionnez vos dates" />
+      <button onclick="calculer()">Calculer le prix</button>
+
+      <div class="resume" id="resume"></div>
+
+      <button id="btnContinuer" onclick="goForm()" disabled>Continuer</button>
+      <button class="btn-secondary" onclick="changePage(1)">Retour</button>
+
+      <div class="small-note">Le prix est calculé en fonction du nombre de jours (tarif fixe par jour).</div>
+    </div>
+  </div>
 </div>
 
 <!-- PAGE 3 -->
 <div id="page3" class="page">
-<h2>Vos informations</h2>
-<input type="text" id="nom" placeholder="Nom">
-<input type="email" id="email" placeholder="Email">
-<input type="tel" id="tel" placeholder="Téléphone">
-<button onclick="valider()">Envoyer la demande</button>
-<button onclick="changePage(2)">⬅ Retour</button>
-<div id="confirmation"></div>
+  <div class="section" style="text-align:center;">
+    <h2>Vos informations</h2>
+    <div class="form-wrap">
+      <input type="text" id="nom" placeholder="Nom" />
+      <input type="email" id="email" placeholder="Email" />
+      <input type="tel" id="tel" placeholder="Téléphone" />
+
+      <button onclick="valider()">Envoyer la demande</button>
+      <button class="btn-secondary" onclick="changePage(2)">Retour</button>
+
+      <div id="confirmation"></div>
+      <div class="small-note">Votre demande sera traitée par la concession pour confirmer la disponibilité.</div>
+    </div>
+  </div>
 </div>
-  <!-- SECTION LOCALISATION -->
-<section style="background:#111;padding:60px 20px;text-align:center;">
-
-<h2>Nous trouver</h2>
-
-<p style="margin-top:10px;">
-📍 185 Route de Cannes, 06130 Grasse
-</p>
-
-<p>
-📞 <a href="tel:0624224960" style="color:red;font-weight:bold;text-decoration:none;">
-06 24 22 49 60
-</a>
-</p>
-
-<div style="margin:20px 0;">
-<a href="https://www.google.com/maps/search/?api=1&query=185+Route+de+Cannes+06130+Grasse" target="_blank">
-<button>Ouvrir dans Google Maps</button>
-</a>
-
-<a href="https://www.google.com/search?q=Aixam+Jean+Cauvin+Mobilités+Grasse+avis" target="_blank">
-<button style="margin-left:10px;">Voir les avis Google ⭐</button>
-</a>
-</div>
-
-<iframe 
-src="https://www.google.com/maps?q=185+Route+de+Cannes+06130+Grasse&output=embed" 
-width="100%" 
-height="350" 
-style="border:0;border-radius:15px;box-shadow:0 0 20px rgba(255,0,0,0.3);" 
-allowfullscreen="" 
-loading="lazy">
-</iframe>
-
-</section>
 
 <footer>
-Aixam Jean Cauvin Mobilités – Grasse<br>
-Concession Agréée Officielle
+  Aixam Jean Cauvin Mobilités – Grasse<br />
+  185 Route de Cannes, 06130 Grasse — 06 24 22 49 60
 </footer>
 
 <script>
+/* DATE PICKER */
+flatpickr("#dateRange", { mode:"range", minDate:"today", dateFormat:"Y-m-d" });
 
-flatpickr("#dateRange",{mode:"range",minDate:"today"});
-
-const gamme=[
-{nom:"Minauto Access",prix:25,img:"minauto.jpg"},
-{nom:"City Pack",prix:30,img:"citypack.jpg"},
-{nom:"City Sport",prix:33,img:"citysport.jpg"},
-{nom:"Coupé Sport",prix:36,img:"coupesport.jpg"},
-{nom:"Coupé GTI",prix:40,img:"coupegti.jpg"},
-{nom:"Crossover Premium",prix:42,img:"crossover.jpg"},
-{nom:"e-City Sport",prix:45,img:"ecity.jpg"}
+/* GAMME */
+const gamme = [
+  {nom:"Minauto Access", prix:25, img:"minauto.jpg"},
+  {nom:"City Pack", prix:30, img:"citypack.jpg"},
+  {nom:"City Sport", prix:33, img:"citysport.jpg"},
+  {nom:"Coupé Sport", prix:36, img:"coupesport.jpg"},
+  {nom:"Coupé GTI", prix:40, img:"coupegti.jpg"},
+  {nom:"Crossover Premium", prix:42, img:"crossover.jpg"},
+  {nom:"e-City Sport", prix:45, img:"ecity.jpg"}
 ];
 
-const container=document.getElementById("container");
-
-gamme.forEach(v=>{
-container.innerHTML+=`
-<div class="card" onclick="selectModele('${v.nom}',${v.prix})">
-<img src="${v.img}">
-<div class="card-content">
-<h3>${v.nom}</h3>
-<p>${v.prix}€ / jour</p>
-</div>
-</div>`;
+const container = document.getElementById("container");
+gamme.forEach(v => {
+  container.innerHTML += `
+    <div class="card" onclick="selectModele('${escapeHtml(v.nom)}', ${v.prix})">
+      <img src="${v.img}" alt="${escapeHtml(v.nom)}">
+      <div class="card-content">
+        <h3>${escapeHtml(v.nom)}</h3>
+        <p>${v.prix}€ / jour</p>
+      </div>
+    </div>
+  `;
 });
 
-let modeleChoisi="";
-let prixJournalier=0;
-let jours=0;
-let total=0;
+/* STATE */
+let modeleChoisi = "";
+let prixJournalier = 0;
+let jours = 0;
+let total = 0;
 
-function selectModele(nom,prix){
-modeleChoisi=nom;
-prixJournalier=prix;
-document.getElementById("modeleTitre").innerText=
-nom+" - "+prix+"€/jour";
-changePage(2);
+function scrollToModeles(){
+  const el = document.getElementById("modeles");
+  if(el) el.scrollIntoView({behavior:"smooth", block:"start"});
+}
+
+function selectModele(nom, prix){
+  modeleChoisi = nom;
+  prixJournalier = prix;
+
+  document.getElementById("modeleTitre").innerText = "Choisissez votre période";
+  document.getElementById("modeleInfo").innerText = nom + " — " + prix + "€ / jour";
+
+  // reset
+  document.getElementById("dateRange").value = "";
+  document.getElementById("resume").innerHTML = "";
+  document.getElementById("btnContinuer").disabled = true;
+  jours = 0; total = 0;
+
+  changePage(2);
 }
 
 function calculer(){
-const dates=document.getElementById("dateRange").value.split(" to ");
-if(dates.length<2){alert("Sélectionnez une période.");return;}
+  if(!prixJournalier){
+    alert("Veuillez d'abord choisir un véhicule.");
+    return;
+  }
 
-jours=Math.ceil((new Date(dates[1])-new Date(dates[0]))/(1000*3600*24));
-total=jours*prixJournalier;
+  const raw = document.getElementById("dateRange").value;
+  const dates = raw.split(" to ");
+  if(dates.length < 2){
+    alert("Sélectionnez une période complète.");
+    return;
+  }
 
-document.getElementById("resume").innerHTML=
-"Durée : "+jours+" jours<br>Total estimé : "+total+" €";
+  const debut = new Date(dates[0]);
+  const fin = new Date(dates[1]);
+
+  jours = Math.ceil((fin - debut) / (1000 * 3600 * 24));
+  if(!Number.isFinite(jours) || jours <= 0){
+    alert("Dates invalides. Merci de recommencer.");
+    return;
+  }
+
+  total = jours * prixJournalier;
+
+  document.getElementById("resume").innerHTML =
+    "<div style='font-weight:700; margin-bottom:8px;'>Récapitulatif</div>" +
+    "Modèle : " + escapeHtml(modeleChoisi) + "<br>" +
+    "Durée : " + jours + " jour(s)<br>" +
+    "Total estimé : " + total + " €";
+
+  document.getElementById("btnContinuer").disabled = false;
 }
 
 function goForm(){
-if(total===0){alert("Calculez le prix d'abord.");return;}
-changePage(3);
+  if(!total || !jours){
+    alert("Calculez le prix avant de continuer.");
+    return;
+  }
+  changePage(3);
 }
 
 function valider(){
-const nom=document.getElementById("nom").value;
-const email=document.getElementById("email").value;
-const tel=document.getElementById("tel").value;
+  const nom = document.getElementById("nom").value.trim();
+  const email = document.getElementById("email").value.trim();
+  const tel = document.getElementById("tel").value.trim();
 
-if(!nom||!email||!tel){
-alert("Merci de remplir tous les champs.");
-return;
-}
+  if(!nom || !email || !tel){
+    alert("Merci de remplir tous les champs.");
+    return;
+  }
 
-document.getElementById("confirmation").innerHTML=
-"<div class='resume'>"+
-"<h3>Demande envoyée ✔</h3>"+
-"Modèle : "+modeleChoisi+"<br>"+
-"Durée : "+jours+" jours<br>"+
-"Total estimé : "+total+" €<br>"+
-"Nous vous contactons rapidement."+
-"</div>";
+  document.getElementById("confirmation").innerHTML =
+    "<div class='resume' style='text-align:left;'>" +
+      "<div style='font-weight:700; margin-bottom:8px;'>Demande envoyée</div>" +
+      "Nom : " + escapeHtml(nom) + "<br>" +
+      "Email : " + escapeHtml(email) + "<br>" +
+      "Téléphone : " + escapeHtml(tel) + "<br><br>" +
+      "Modèle : " + escapeHtml(modeleChoisi) + "<br>" +
+      "Durée : " + jours + " jour(s)<br>" +
+      "Total estimé : " + total + " €<br><br>" +
+      "La concession vous recontacte rapidement pour confirmer la disponibilité." +
+    "</div>";
 }
 
 function changePage(n){
-document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
-document.getElementById("page"+n).classList.add("active");
-window.scrollTo({top:0,behavior:'smooth'});
+  document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
+  const target = document.getElementById("page" + n);
+  if(target) target.classList.add("active");
+
+  document.getElementById("progress").innerText = "Étape " + n + " / 3";
+  window.scrollTo({top:0, behavior:"smooth"});
 }
 
+/* SECURITY: basic HTML escape */
+function escapeHtml(str){
+  return String(str)
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+}
 </script>
 
 </body>
 </html>
-
