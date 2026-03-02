@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Location Aixam - Véhicule sans permis</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #111;
+    color: white;
+}
+
+header {
+    background: black;
+    padding: 20px;
+    text-align: center;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.hero {
+    text-align: center;
+    padding: 60px 20px;
+    background: linear-gradient(to right, #000000, #8B0000);
+}
+
+section {
+    padding: 40px 20px;
+    max-width: 900px;
+    margin: auto;
+}
+
+.modeles {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.card {
+    background: #222;
+    padding: 20px;
+    border-radius: 8px;
+    width: 250px;
+    text-align: center;
+    cursor: pointer;
+    border: 2px solid transparent;
+}
+
+.card:hover {
+    border: 2px solid red;
+}
+
+.selected {
+    border: 2px solid lime;
+}
+
+input, select, button {
+    padding: 10px;
+    margin: 10px 0;
+    width: 100%;
+    border-radius: 5px;
+    border: none;
+}
+
+button {
+    background: red;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.resume {
+    background: #222;
+    padding: 20px;
+    border-radius: 8px;
+    margin-top: 20px;
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    background: black;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+AIXAM LOCATION - Louez dès 14 ans
+</header>
+
+<div class="hero">
+<h2>Location de véhicule sans permis</h2>
+<p>Simple. Rapide. Accessible.</p>
+</div>
+
+<section>
+<h2>Choisissez votre modèle</h2>
+<div class="modeles">
+    <div class="card" onclick="choisirModele('Aixam City', 29, this)">
+        <h3>Aixam City</h3>
+        <p>29€ / jour</p>
+    </div>
+
+    <div class="card" onclick="choisirModele('Aixam Coupé', 35, this)">
+        <h3>Aixam Coupé</h3>
+        <p>35€ / jour</p>
+    </div>
+
+    <div class="card" onclick="choisirModele('Aixam Crossline', 39, this)">
+        <h3>Aixam Crossline</h3>
+        <p>39€ / jour</p>
+    </div>
+</div>
+</section>
+
+<section>
+<h2>Durée de location</h2>
+<label>Date de début</label>
+<input type="date" id="dateDebut">
+
+<label>Date de fin</label>
+<input type="date" id="dateFin">
+
+<h3>Options</h3>
+<label><input type="checkbox" id="nettoyage" value="20"> Nettoyage premium (+20€)</label><br>
+<label><input type="checkbox" id="livraison" value="50"> Livraison (+50€)</label>
+
+<button onclick="calculer()">Calculer le prix</button>
+
+<div class="resume" id="resume" style="display:none;"></div>
+</section>
+
+<section>
+<h2>Réservation</h2>
+<input type="text" placeholder="Nom">
+<input type="email" placeholder="Email">
+<input type="tel" placeholder="Téléphone">
+<button onclick="envoyer()">Envoyer la demande</button>
+</section>
+
+<footer>
+© 2026 Aixam Location
+</footer>
+
+<script>
+let modeleChoisi = "";
+let prixJournalier = 0;
+
+function choisirModele(modele, prix, element) {
+    modeleChoisi = modele;
+    prixJournalier = prix;
+
+    document.querySelectorAll('.card').forEach(card => {
+        card.classList.remove('selected');
+    });
+
+    element.classList.add('selected');
+}
+
+function calculer() {
+    const dateDebut = new Date(document.getElementById("dateDebut").value);
+    const dateFin = new Date(document.getElementById("dateFin").value);
+
+    if (!modeleChoisi) {
+        alert("Veuillez choisir un modèle.");
+        return;
+    }
+
+    if (!document.getElementById("dateDebut").value || !document.getElementById("dateFin").value) {
+        alert("Veuillez choisir les dates.");
+        return;
+    }
+
+    const diffTime = dateFin - dateDebut;
+    const jours = diffTime / (1000 * 3600 * 24);
+
+    if (jours <= 0) {
+        alert("La date de fin doit être après la date de début.");
+        return;
+    }
+
+    let total = jours * prixJournalier;
+
+    if (document.getElementById("nettoyage").checked) {
+        total += 20;
+    }
+
+    if (document.getElementById("livraison").checked) {
+        total += 50;
+    }
+
+    const resume = document.getElementById("resume");
+    resume.style.display = "block";
+    resume.innerHTML = `
+        <h3>Résumé de la réservation</h3>
+        <p><strong>Modèle :</strong> ${modeleChoisi}</p>
+        <p><strong>Durée :</strong> ${jours} jours</p>
+        <p><strong>Total :</strong> ${total} €</p>
+    `;
+}
+
+function envoyer() {
+    alert("Votre demande de réservation a été envoyée. Nous vous contacterons rapidement.");
+}
+</script>
+
+</body>
+</html>
