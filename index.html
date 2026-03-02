@@ -10,16 +10,15 @@
 <style>
 body{
 margin:0;
-font-family:Arial;
+font-family:Arial, sans-serif;
 background:#0f0f0f;
 color:white;
-text-align:center;
 }
 
-/* HEADER */
 header{
 background:black;
 padding:20px;
+text-align:center;
 box-shadow:0 0 20px red;
 }
 
@@ -27,26 +26,32 @@ header img{
 height:60px;
 }
 
-h2{
-margin-top:30px;
+.progress{
+text-align:center;
+margin:20px;
+font-weight:bold;
+color:red;
 }
 
-/* PAGES */
 .page{
 display:none;
 padding:40px 20px;
+animation:fade .4s ease;
+max-width:1000px;
+margin:auto;
+text-align:center;
 }
 
-.active{
+.page.active{
 display:block;
 }
 
-/* MODELES */
 .modeles{
 display:flex;
 flex-wrap:wrap;
 gap:25px;
 justify-content:center;
+margin-top:30px;
 }
 
 .card{
@@ -73,11 +78,10 @@ object-fit:cover;
 padding:15px;
 }
 
-/* FORM */
 input{
 padding:12px;
 margin:10px 0;
-width:250px;
+width:280px;
 border-radius:6px;
 border:none;
 }
@@ -90,6 +94,16 @@ color:white;
 cursor:pointer;
 border-radius:6px;
 margin:10px;
+transition:0.3s;
+}
+
+button:hover{
+opacity:0.8;
+}
+
+button:disabled{
+background:grey;
+cursor:not-allowed;
 }
 
 .resume{
@@ -98,6 +112,20 @@ background:#1c1c1c;
 padding:20px;
 border-radius:10px;
 display:inline-block;
+min-width:280px;
+}
+
+.confirmation{
+background:#1c1c1c;
+padding:25px;
+border-radius:10px;
+margin-top:20px;
+display:inline-block;
+}
+
+@keyframes fade{
+from{opacity:0;transform:translateY(10px);}
+to{opacity:1;transform:translateY(0);}
 }
 </style>
 </head>
@@ -107,11 +135,13 @@ display:inline-block;
 <header>
 <img src="logo-aixam.png">
 <h3>JEAN CAUVIN MOBILITÉS – GRASSE</h3>
+<p>Location Véhicules Sans Permis Aixam</p>
 </header>
 
-<!-- PAGE 1 : CHOIX VEHICULE -->
-<div id="page1" class="page active">
+<div class="progress" id="progress">Étape 1 / 3</div>
 
+<!-- PAGE 1 -->
+<div id="page1" class="page active">
 <h2>Choisissez votre véhicule</h2>
 
 <div class="modeles">
@@ -141,10 +171,9 @@ display:inline-block;
 </div>
 
 </div>
-
 </div>
 
-<!-- PAGE 2 : RESERVATION -->
+<!-- PAGE 2 -->
 <div id="page2" class="page">
 
 <h2 id="titreReservation"></h2>
@@ -157,53 +186,114 @@ display:inline-block;
 <div class="resume" id="resume"></div>
 
 <br>
-<button onclick="retour()">⬅ Retour</button>
+<button id="btnContinuer" onclick="allerInfos()" disabled>Continuer</button>
+<button onclick="changerPage(1)">⬅ Retour</button>
+
+</div>
+
+<!-- PAGE 3 -->
+<div id="page3" class="page">
+
+<h2>Vos informations</h2>
+
+<input type="text" id="nom" placeholder="Nom">
+<input type="email" id="email" placeholder="Email">
+<input type="tel" id="telephone" placeholder="Téléphone">
+
+<br>
+<button onclick="valider()">Valider la demande</button>
+<button onclick="changerPage(2)">⬅ Retour</button>
+
+<div id="confirmation"></div>
 
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
 <script>
+let modeleChoisi="";
+let prixJournalier=0;
+let totalFinal=0;
+let joursFinal=0;
 
-let prixJournalier = 0;
-
-flatpickr("#dateRange", {
-mode: "range",
-minDate: "today"
+flatpickr("#dateRange",{
+mode:"range",
+minDate:"today",
+dateFormat:"Y-m-d"
 });
 
-function choisir(modele, prix){
-prixJournalier = prix;
+function choisir(modele,prix){
+modeleChoisi=modele;
+prixJournalier=prix;
 
 document.getElementById("titreReservation").innerText =
-"Réservation : " + modele + " (" + prix + "€ / jour)";
+"Réservation : "+modele+" ("+prix+"€ / jour)";
 
-document.getElementById("page1").classList.remove("active");
-document.getElementById("page2").classList.add("active");
+document.getElementById("resume").innerHTML="";
+document.getElementById("btnContinuer").disabled=true;
+
+changerPage(2);
 }
 
 function calculer(){
-const dates = document.getElementById("dateRange").value.split(" to ");
+const valeur=document.getElementById("dateRange").value;
+const dates=valeur.split(" to ");
 
-if(dates.length < 2){
-alert("Choisissez une période.");
+if(dates.length<2){
+alert("Merci de sélectionner une période complète.");
 return;
 }
 
-const diff = (new Date(dates[1]) - new Date(dates[0])) / (1000*3600*24);
-const total = diff * prixJournalier;
+const debut=new Date(dates[0]);
+const fin=new Date(dates[1]);
+
+joursFinal=Math.ceil((fin-debut)/(1000*3600*24));
+
+if(joursFinal <= 0){
+alert("Dates invalides.");
+return;
+}
+
+totalFinal=joursFinal*prixJournalier;
 
 document.getElementById("resume").innerHTML =
-"Durée : " + diff + " jours<br>Total : " + total + " €";
+"<strong>Modèle :</strong> "+modeleChoisi+"<br>"+
+"<strong>Durée :</strong> "+joursFinal+" jour(s)<br>"+
+"<strong>Total estimé :</strong> "+totalFinal+" €";
+
+document.getElementById("btnContinuer").disabled=false;
 }
 
-function retour(){
-document.getElementById("page2").classList.remove("active");
-document.getElementById("page1").classList.add("active");
-document.getElementById("resume").innerHTML = "";
-document.getElementById("dateRange").value = "";
+function allerInfos(){
+changerPage(3);
 }
 
+function valider(){
+const nom=document.getElementById("nom").value.trim();
+const email=document.getElementById("email").value.trim();
+const tel=document.getElementById("telephone").value.trim();
+
+if(!nom || !email || !tel){
+alert("Merci de remplir tous les champs.");
+return;
+}
+
+document.getElementById("confirmation").innerHTML =
+"<div class='confirmation'>"+
+"<h3>Demande envoyée !</h3>"+
+"<p>Merci "+nom+"</p>"+
+"<p><strong>Modèle :</strong> "+modeleChoisi+"</p>"+
+"<p><strong>Durée :</strong> "+joursFinal+" jour(s)</p>"+
+"<p><strong>Total estimé :</strong> "+totalFinal+" €</p>"+
+"<p>Un conseiller Aixam Grasse vous contacte rapidement.</p>"+
+"</div>";
+}
+
+function changerPage(numero){
+document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+document.getElementById("page"+numero).classList.add("active");
+document.getElementById("progress").innerText="Étape "+numero+" / 3";
+}
 </script>
 
 </body>
