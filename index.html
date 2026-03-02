@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Aixam Location Premium</title>
+<title>Aixam Jean Cauvin Mobilités - Grasse</title>
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700&display=swap');
@@ -15,23 +15,50 @@ background:#0f0f0f;
 color:white;
 }
 
+/* HEADER PRO */
 header{
-background:black;
-padding:20px;
+background:#000;
+padding:25px 20px;
 text-align:center;
-box-shadow:0 0 20px red;
+box-shadow:0 0 25px rgba(255,0,0,0.5);
 }
 
 header img{
-height:60px;
+height:65px;
+display:block;
+margin:0 auto 15px auto;
 }
 
+.concession-title{
+font-size:22px;
+font-weight:700;
+letter-spacing:1px;
+}
+
+.concession-sub{
+font-size:14px;
+color:#bbb;
+margin-top:5px;
+}
+
+/* HERO */
 .hero{
 text-align:center;
-padding:40px 20px;
-background:linear-gradient(to right,#000,#400);
+padding:50px 20px;
+background:linear-gradient(to right,#000,#500);
 }
 
+.hero h2{
+margin:0;
+font-size:26px;
+}
+
+.hero p{
+color:#ccc;
+margin-top:10px;
+}
+
+/* ETAPES */
 section{
 display:none;
 padding:50px 20px;
@@ -42,6 +69,13 @@ margin:auto;
 .active{
 display:block;
 animation:fadeIn .5s ease-in-out;
+}
+
+.progress{
+text-align:center;
+margin:25px;
+font-weight:bold;
+color:red;
 }
 
 .modeles{
@@ -102,18 +136,29 @@ border-radius:10px;
 margin-top:20px;
 }
 
-.progress{
-text-align:center;
-margin:20px;
-font-weight:bold;
-color:red;
-}
-
 .nav-buttons{
 margin-top:20px;
 text-align:center;
 }
 
+footer{
+background:#000;
+padding:30px;
+text-align:center;
+margin-top:50px;
+color:#aaa;
+font-size:14px;
+}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+.modeles{
+flex-direction:column;
+align-items:center;
+}
+}
+
+/* ANIMATION */
 @keyframes fadeIn{
 from{opacity:0;transform:translateY(10px);}
 to{opacity:1;transform:translateY(0);}
@@ -124,18 +169,20 @@ to{opacity:1;transform:translateY(0);}
 <body>
 
 <header>
-<img src="https://upload.wikimedia.org/wikipedia/commons/4/4e/Aixam_logo.svg">
+<img src="logo-aixam.png" alt="Logo Aixam">
+<div class="concession-title">JEAN CAUVIN MOBILITÉS</div>
+<div class="concession-sub">Concession Officielle Aixam – Grasse</div>
 </header>
 
 <div class="hero">
-<h1>Location Officielle Aixam</h1>
-<p>Louez dès 14 ans - Simple - Rapide</p>
+<h2>Location Véhicules Sans Permis Aixam</h2>
+<p>Votre spécialiste dans les Alpes-Maritimes</p>
 </div>
 
 <div class="progress">Étape 1 / 3</div>
 
 <section id="etape1" class="active">
-<h2>Choisissez votre modèle</h2>
+<h2 style="text-align:center;">Choisissez votre modèle</h2>
 <div class="modeles" id="container"></div>
 </section>
 
@@ -171,44 +218,20 @@ to{opacity:1;transform:translateY(0);}
 </div>
 </section>
 
-<script>
+<footer>
+Aixam Jean Cauvin Mobilités – Grasse<br>
+Concession Agréée Officielle
+</footer>
 
+<script>
 const gamme = [
-{
-nom:"Minauto Access",
-prix:25,
-img:"minauto.jpg"
-},
-{
-nom:"City Pack",
-prix:30,
-img:"citypack.jpg"
-},
-{
-nom:"City Sport",
-prix:33,
-img:"citysport.jpg"
-},
-{
-nom:"Coupé Sport",
-prix:36,
-img:"coupesport.jpg"
-},
-{
-nom:"Coupé GTI",
-prix:40,
-img:"coupegti.jpg"
-},
-{
-nom:"Crossover Premium",
-prix:42,
-img:"crossover.jpg"
-},
-{
-nom:"e-City Sport",
-prix:45,
-img:"ecity.jpg"
-}
+{nom:"Minauto Access", prix:25, img:"minauto.jpg"},
+{nom:"City Pack", prix:30, img:"citypack.jpg"},
+{nom:"City Sport", prix:33, img:"citysport.jpg"},
+{nom:"Coupé Sport", prix:36, img:"coupesport.jpg"},
+{nom:"Coupé GTI", prix:40, img:"coupegti.jpg"},
+{nom:"Crossover Premium", prix:42, img:"crossover.jpg"},
+{nom:"e-City Sport", prix:45, img:"ecity.jpg"}
 ];
 
 const container = document.getElementById("container");
@@ -226,10 +249,7 @@ container.innerHTML+=`
 `;
 });
 
-let modeleChoisi="";
-let prixJournalier=0;
-let totalFinal=0;
-let joursFinal=0;
+let modeleChoisi="", prixJournalier=0, totalFinal=0, joursFinal=0;
 
 function choisirModele(modele,prix){
 modeleChoisi=modele;
@@ -242,35 +262,28 @@ changerEtape("etape2",2);
 function calculer(){
 const debut=new Date(document.getElementById("dateDebut").value);
 const fin=new Date(document.getElementById("dateFin").value);
-
 if(!document.getElementById("dateDebut").value||!document.getElementById("dateFin").value){
-alert("Choisissez les dates.");
-return;
+alert("Choisissez les dates."); return;
 }
-
 const diff=(fin-debut)/(1000*3600*24);
-if(diff<=0){alert("Date invalide.");return;}
-
+if(diff<=0){alert("Date invalide."); return;}
 joursFinal=diff;
 totalFinal=diff*prixJournalier;
-
 document.getElementById("resume").innerHTML=
 "Durée : "+joursFinal+" jours<br>Total : "+totalFinal+"€";
 }
 
 function allerEtape3(){
-if(totalFinal===0){alert("Calculez le prix.");return;}
-
+if(totalFinal===0){alert("Calculez le prix."); return;}
 document.getElementById("recap").innerHTML=
 "Modèle : "+modeleChoisi+
 "<br>Durée : "+joursFinal+" jours"+
 "<br>Total : "+totalFinal+"€";
-
 changerEtape("etape3",3);
 }
 
 function envoyer(){
-alert("Demande envoyée !");
+alert("Votre demande a été envoyée. Jean Cauvin Mobilités vous contactera rapidement.");
 location.reload();
 }
 
@@ -279,7 +292,6 @@ document.querySelectorAll("section").forEach(s=>s.classList.remove("active"));
 document.getElementById(id).classList.add("active");
 document.querySelector(".progress").innerText="Étape "+step+" / 3";
 }
-
 </script>
 
 </body>
