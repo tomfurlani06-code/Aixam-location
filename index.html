@@ -16,7 +16,6 @@ color:white;
 text-align:center;
 }
 
-/* HEADER */
 header{
 background:black;
 padding:20px;
@@ -25,23 +24,19 @@ box-shadow:0 0 20px red;
 
 header img{
 height:60px;
+margin-bottom:10px;
 }
 
-h2{
-margin-top:30px;
-}
-
-/* PAGES */
 .page{
 display:none;
 padding:40px 20px;
+animation:fade .4s ease;
 }
 
 .active{
 display:block;
 }
 
-/* MODELES */
 .modeles{
 display:flex;
 flex-wrap:wrap;
@@ -73,7 +68,6 @@ object-fit:cover;
 padding:15px;
 }
 
-/* FORM */
 input{
 padding:12px;
 margin:10px 0;
@@ -99,6 +93,18 @@ padding:20px;
 border-radius:10px;
 display:inline-block;
 }
+
+.confirmation{
+background:#1c1c1c;
+padding:25px;
+border-radius:10px;
+display:inline-block;
+}
+
+@keyframes fade{
+from{opacity:0;transform:translateY(10px);}
+to{opacity:1;transform:translateY(0);}
+}
 </style>
 </head>
 
@@ -107,9 +113,10 @@ display:inline-block;
 <header>
 <img src="logo-aixam.png">
 <h3>JEAN CAUVIN MOBILITÉS – GRASSE</h3>
+<p>Location Véhicules Sans Permis Aixam</p>
 </header>
 
-<!-- PAGE 1 : CHOIX VEHICULE -->
+<!-- PAGE 1 : VEHICULE -->
 <div id="page1" class="page active">
 
 <h2>Choisissez votre véhicule</h2>
@@ -144,7 +151,7 @@ display:inline-block;
 
 </div>
 
-<!-- PAGE 2 : RESERVATION -->
+<!-- PAGE 2 : DATES -->
 <div id="page2" class="page">
 
 <h2 id="titreReservation"></h2>
@@ -157,7 +164,25 @@ display:inline-block;
 <div class="resume" id="resume"></div>
 
 <br>
-<button onclick="retour()">⬅ Retour</button>
+<button onclick="allerInfos()">Continuer</button>
+<button onclick="retour(1)">⬅ Retour</button>
+
+</div>
+
+<!-- PAGE 3 : INFOS CLIENT -->
+<div id="page3" class="page">
+
+<h2>Vos informations</h2>
+
+<input type="text" id="nom" placeholder="Nom">
+<input type="email" id="email" placeholder="Email">
+<input type="tel" id="telephone" placeholder="Téléphone">
+
+<br>
+<button onclick="valider()">Valider la demande</button>
+<button onclick="retour(2)">⬅ Retour</button>
+
+<div id="confirmation"></div>
 
 </div>
 
@@ -165,7 +190,10 @@ display:inline-block;
 
 <script>
 
+let modeleChoisi = "";
 let prixJournalier = 0;
+let totalFinal = 0;
+let joursFinal = 0;
 
 flatpickr("#dateRange", {
 mode: "range",
@@ -173,13 +201,13 @@ minDate: "today"
 });
 
 function choisir(modele, prix){
+modeleChoisi = modele;
 prixJournalier = prix;
 
 document.getElementById("titreReservation").innerText =
 "Réservation : " + modele + " (" + prix + "€ / jour)";
 
-document.getElementById("page1").classList.remove("active");
-document.getElementById("page2").classList.add("active");
+changerPage(2);
 }
 
 function calculer(){
@@ -190,18 +218,54 @@ alert("Choisissez une période.");
 return;
 }
 
-const diff = (new Date(dates[1]) - new Date(dates[0])) / (1000*3600*24);
-const total = diff * prixJournalier;
+const debut = new Date(dates[0]);
+const fin = new Date(dates[1]);
+joursFinal = (fin - debut) / (1000*3600*24);
+totalFinal = joursFinal * prixJournalier;
 
 document.getElementById("resume").innerHTML =
-"Durée : " + diff + " jours<br>Total : " + total + " €";
+"Durée : " + joursFinal + " jours<br>Total estimé : " + totalFinal + " €";
 }
 
-function retour(){
+function allerInfos(){
+if(totalFinal === 0){
+alert("Calculez le prix avant de continuer.");
+return;
+}
+changerPage(3);
+}
+
+function valider(){
+const nom = document.getElementById("nom").value;
+const email = document.getElementById("email").value;
+const tel = document.getElementById("telephone").value;
+
+if(!nom || !email || !tel){
+alert("Veuillez remplir tous les champs.");
+return;
+}
+
+document.getElementById("confirmation").innerHTML =
+"<div class='confirmation'>" +
+"<h3>Demande envoyée !</h3>" +
+"<p>Merci " + nom + "</p>" +
+"<p>Modèle : " + modeleChoisi + "</p>" +
+"<p>Durée : " + joursFinal + " jours</p>" +
+"<p>Total estimé : " + totalFinal + " €</p>" +
+"<p>Nous vous contacterons rapidement.</p>" +
+"</div>";
+}
+
+function changerPage(numero){
+document.getElementById("page1").classList.remove("active");
 document.getElementById("page2").classList.remove("active");
-document.getElementById("page1").classList.add("active");
-document.getElementById("resume").innerHTML = "";
-document.getElementById("dateRange").value = "";
+document.getElementById("page3").classList.remove("active");
+
+document.getElementById("page"+numero).classList.add("active");
+}
+
+function retour(numero){
+changerPage(numero);
 }
 
 </script>
