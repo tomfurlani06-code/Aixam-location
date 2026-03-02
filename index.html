@@ -18,11 +18,12 @@ header {
     padding: 20px;
     text-align: center;
     font-size: 22px;
+    font-weight: bold;
 }
 
 section {
     padding: 40px;
-    max-width: 900px;
+    max-width: 1100px;
     margin: auto;
     display: none;
 }
@@ -39,11 +40,17 @@ section {
 }
 
 .card {
-    background: #222;
+    background: #1c1c1c;
     padding: 20px;
-    border-radius: 10px;
-    width: 250px;
+    border-radius: 12px;
+    width: 260px;
     text-align: center;
+    transition: 0.3s;
+}
+
+.card:hover {
+    transform: scale(1.03);
+    box-shadow: 0 0 15px red;
 }
 
 .card img {
@@ -58,18 +65,21 @@ button {
     color: white;
     border: none;
     cursor: pointer;
+    border-radius: 5px;
 }
 
 input {
     padding: 10px;
     margin: 10px 0;
     width: 100%;
+    border-radius: 5px;
+    border: none;
 }
 
 .resume {
     background: #222;
     padding: 20px;
-    border-radius: 8px;
+    border-radius: 10px;
     margin-top: 20px;
 }
 </style>
@@ -77,33 +87,54 @@ input {
 
 <body>
 
-<header>AIXAM LOCATION - Véhicule sans permis</header>
+<header>AIXAM LOCATION - Louez dès 14 ans</header>
 
 <!-- ETAPE 1 -->
 <section id="etape1" class="active">
-<h2>Choisissez votre véhicule</h2>
+<h2>Choisissez votre modèle</h2>
 
 <div class="modeles">
 
 <div class="card">
+<img src="https://upload.wikimedia.org/wikipedia/commons/5/5f/Aixam_Minauto.jpg">
+<h3>Minauto</h3>
+<p>25€ / jour</p>
+<button onclick="choisirModele('Minauto',25)">Choisir</button>
+</div>
+
+<div class="card">
 <img src="https://upload.wikimedia.org/wikipedia/commons/6/6c/Aixam_City_2010.jpg">
-<h3>Aixam City</h3>
+<h3>City Pack</h3>
 <p>29€ / jour</p>
-<button onclick="choisirModele('Aixam City',29)">Choisir</button>
+<button onclick="choisirModele('City Pack',29)">Choisir</button>
+</div>
+
+<div class="card">
+<img src="https://upload.wikimedia.org/wikipedia/commons/6/6c/Aixam_City_2010.jpg">
+<h3>City Sport</h3>
+<p>32€ / jour</p>
+<button onclick="choisirModele('City Sport',32)">Choisir</button>
 </div>
 
 <div class="card">
 <img src="https://upload.wikimedia.org/wikipedia/commons/3/3f/Aixam_Coupe.jpg">
-<h3>Aixam Coupé</h3>
+<h3>Coupé Sport</h3>
 <p>35€ / jour</p>
-<button onclick="choisirModele('Aixam Coupé',35)">Choisir</button>
+<button onclick="choisirModele('Coupé Sport',35)">Choisir</button>
+</div>
+
+<div class="card">
+<img src="https://upload.wikimedia.org/wikipedia/commons/3/3f/Aixam_Coupe.jpg">
+<h3>Coupé GTI</h3>
+<p>39€ / jour</p>
+<button onclick="choisirModele('Coupé GTI',39)">Choisir</button>
 </div>
 
 <div class="card">
 <img src="https://upload.wikimedia.org/wikipedia/commons/5/56/Aixam_Crossline.jpg">
-<h3>Aixam Crossline</h3>
-<p>39€ / jour</p>
-<button onclick="choisirModele('Aixam Crossline',39)">Choisir</button>
+<h3>Crossover</h3>
+<p>42€ / jour</p>
+<button onclick="choisirModele('Crossover',42)">Choisir</button>
 </div>
 
 </div>
