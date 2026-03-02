@@ -3,13 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Location Aixam - Véhicule sans permis</title>
+<title>Aixam Location</title>
 
 <style>
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background-color: #111;
+    background: #111;
     color: white;
 }
 
@@ -18,19 +18,17 @@ header {
     padding: 20px;
     text-align: center;
     font-size: 22px;
-    font-weight: bold;
-}
-
-.hero {
-    text-align: center;
-    padding: 60px 20px;
-    background: linear-gradient(to right, #000000, #8B0000);
 }
 
 section {
-    padding: 40px 20px;
+    padding: 40px;
     max-width: 900px;
     margin: auto;
+    display: none;
+}
+
+.active {
+    display: block;
 }
 
 .modeles {
@@ -43,34 +41,29 @@ section {
 .card {
     background: #222;
     padding: 20px;
-    border-radius: 8px;
+    border-radius: 10px;
     width: 250px;
     text-align: center;
-    cursor: pointer;
-    border: 2px solid transparent;
 }
 
-.card:hover {
-    border: 2px solid red;
-}
-
-.selected {
-    border: 2px solid lime;
-}
-
-input, select, button {
-    padding: 10px;
-    margin: 10px 0;
+.card img {
     width: 100%;
-    border-radius: 5px;
-    border: none;
+    border-radius: 8px;
 }
 
 button {
+    margin-top: 10px;
+    padding: 10px;
     background: red;
     color: white;
-    font-weight: bold;
+    border: none;
     cursor: pointer;
+}
+
+input {
+    padding: 10px;
+    margin: 10px 0;
+    width: 100%;
 }
 
 .resume {
@@ -79,134 +72,138 @@ button {
     border-radius: 8px;
     margin-top: 20px;
 }
-
-footer {
-    text-align: center;
-    padding: 20px;
-    background: black;
-}
 </style>
 </head>
 
 <body>
 
-<header>
-AIXAM LOCATION - Louez dès 14 ans
-</header>
+<header>AIXAM LOCATION - Véhicule sans permis</header>
 
-<div class="hero">
-<h2>Location de véhicule sans permis</h2>
-<p>Simple. Rapide. Accessible.</p>
+<!-- ETAPE 1 -->
+<section id="etape1" class="active">
+<h2>Choisissez votre véhicule</h2>
+
+<div class="modeles">
+
+<div class="card">
+<img src="https://upload.wikimedia.org/wikipedia/commons/6/6c/Aixam_City_2010.jpg">
+<h3>Aixam City</h3>
+<p>29€ / jour</p>
+<button onclick="choisirModele('Aixam City',29)">Choisir</button>
 </div>
 
-<section>
-<h2>Choisissez votre modèle</h2>
-<div class="modeles">
-    <div class="card" onclick="choisirModele('Aixam City', 29, this)">
-        <h3>Aixam City</h3>
-        <p>29€ / jour</p>
-    </div>
+<div class="card">
+<img src="https://upload.wikimedia.org/wikipedia/commons/3/3f/Aixam_Coupe.jpg">
+<h3>Aixam Coupé</h3>
+<p>35€ / jour</p>
+<button onclick="choisirModele('Aixam Coupé',35)">Choisir</button>
+</div>
 
-    <div class="card" onclick="choisirModele('Aixam Coupé', 35, this)">
-        <h3>Aixam Coupé</h3>
-        <p>35€ / jour</p>
-    </div>
+<div class="card">
+<img src="https://upload.wikimedia.org/wikipedia/commons/5/56/Aixam_Crossline.jpg">
+<h3>Aixam Crossline</h3>
+<p>39€ / jour</p>
+<button onclick="choisirModele('Aixam Crossline',39)">Choisir</button>
+</div>
 
-    <div class="card" onclick="choisirModele('Aixam Crossline', 39, this)">
-        <h3>Aixam Crossline</h3>
-        <p>39€ / jour</p>
-    </div>
 </div>
 </section>
 
-<section>
-<h2>Durée de location</h2>
-<label>Date de début</label>
+<!-- ETAPE 2 -->
+<section id="etape2">
+<h2>Choisissez vos dates</h2>
+<p id="modeleInfo"></p>
+
+<label>Date début</label>
 <input type="date" id="dateDebut">
 
-<label>Date de fin</label>
+<label>Date fin</label>
 <input type="date" id="dateFin">
-
-<h3>Options</h3>
-<label><input type="checkbox" id="nettoyage" value="20"> Nettoyage premium (+20€)</label><br>
-<label><input type="checkbox" id="livraison" value="50"> Livraison (+50€)</label>
 
 <button onclick="calculer()">Calculer le prix</button>
 
-<div class="resume" id="resume" style="display:none;"></div>
+<div class="resume" id="resume"></div>
+
+<button onclick="allerEtape3()">Continuer</button>
 </section>
 
-<section>
-<h2>Réservation</h2>
+<!-- ETAPE 3 -->
+<section id="etape3">
+<h2>Confirmation</h2>
+
+<div class="resume" id="recap"></div>
+
+<h3>Vos informations</h3>
 <input type="text" placeholder="Nom">
 <input type="email" placeholder="Email">
 <input type="tel" placeholder="Téléphone">
+
 <button onclick="envoyer()">Envoyer la demande</button>
 </section>
-
-<footer>
-© 2026 Aixam Location
-</footer>
 
 <script>
 let modeleChoisi = "";
 let prixJournalier = 0;
+let totalFinal = 0;
+let joursFinal = 0;
 
-function choisirModele(modele, prix, element) {
+function choisirModele(modele, prix){
     modeleChoisi = modele;
     prixJournalier = prix;
 
-    document.querySelectorAll('.card').forEach(card => {
-        card.classList.remove('selected');
-    });
+    document.getElementById("modeleInfo").innerText =
+        modeleChoisi + " - " + prixJournalier + "€ / jour";
 
-    element.classList.add('selected');
+    changerEtape("etape2");
 }
 
-function calculer() {
-    const dateDebut = new Date(document.getElementById("dateDebut").value);
-    const dateFin = new Date(document.getElementById("dateFin").value);
+function calculer(){
+    const debut = new Date(document.getElementById("dateDebut").value);
+    const fin = new Date(document.getElementById("dateFin").value);
 
-    if (!modeleChoisi) {
-        alert("Veuillez choisir un modèle.");
-        return;
-    }
-
-    if (!document.getElementById("dateDebut").value || !document.getElementById("dateFin").value) {
+    if(!document.getElementById("dateDebut").value || !document.getElementById("dateFin").value){
         alert("Veuillez choisir les dates.");
         return;
     }
 
-    const diffTime = dateFin - dateDebut;
-    const jours = diffTime / (1000 * 3600 * 24);
+    const diff = (fin - debut) / (1000*3600*24);
 
-    if (jours <= 0) {
+    if(diff <= 0){
         alert("La date de fin doit être après la date de début.");
         return;
     }
 
-    let total = jours * prixJournalier;
+    joursFinal = diff;
+    totalFinal = diff * prixJournalier;
 
-    if (document.getElementById("nettoyage").checked) {
-        total += 20;
-    }
-
-    if (document.getElementById("livraison").checked) {
-        total += 50;
-    }
-
-    const resume = document.getElementById("resume");
-    resume.style.display = "block";
-    resume.innerHTML = `
-        <h3>Résumé de la réservation</h3>
-        <p><strong>Modèle :</strong> ${modeleChoisi}</p>
-        <p><strong>Durée :</strong> ${jours} jours</p>
-        <p><strong>Total :</strong> ${total} €</p>
-    `;
+    document.getElementById("resume").innerHTML =
+        "Durée : " + joursFinal + " jours<br>Total : " + totalFinal + "€";
 }
 
-function envoyer() {
-    alert("Votre demande de réservation a été envoyée. Nous vous contacterons rapidement.");
+function allerEtape3(){
+    if(totalFinal === 0){
+        alert("Veuillez calculer le prix avant de continuer.");
+        return;
+    }
+
+    document.getElementById("recap").innerHTML =
+        "Modèle : " + modeleChoisi +
+        "<br>Durée : " + joursFinal + " jours" +
+        "<br>Total : " + totalFinal + "€";
+
+    changerEtape("etape3");
+}
+
+function envoyer(){
+    alert("Votre demande a été envoyée !");
+    location.reload();
+}
+
+function changerEtape(id){
+    document.querySelectorAll("section").forEach(section=>{
+        section.classList.remove("active");
+    });
+    document.getElementById(id).classList.add("active");
 }
 </script>
 
