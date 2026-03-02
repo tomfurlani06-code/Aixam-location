@@ -5,11 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Aixam Jean Cauvin Mobilités - Grasse</title>
 
-<!-- Flatpickr CSS -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700&display=swap');
+
+html { scroll-behavior:smooth; }
 
 body{
 margin:0;
@@ -18,6 +19,7 @@ background:#0f0f0f;
 color:white;
 }
 
+/* HEADER */
 header{
 background:#000;
 padding:25px 20px;
@@ -27,38 +29,46 @@ box-shadow:0 0 25px rgba(255,0,0,0.5);
 
 header img{
 height:65px;
-display:block;
-margin:0 auto 15px auto;
+margin-bottom:10px;
 }
 
 .concession-title{
 font-size:22px;
 font-weight:700;
-letter-spacing:1px;
 }
 
 .concession-sub{
 font-size:14px;
 color:#bbb;
-margin-top:5px;
 }
 
+/* HERO */
 .hero{
 text-align:center;
-padding:50px 20px;
+padding:70px 20px;
 background:linear-gradient(to right,#000,#500);
 }
 
-section{
-display:none;
-padding:50px 20px;
-max-width:900px;
-margin:auto;
+.hero h2{
+font-size:30px;
+margin:0;
 }
 
-.active{
-display:block;
-animation:fadeIn .5s ease-in-out;
+.hero p{
+color:#ccc;
+margin:15px 0;
+}
+
+.hero button{
+font-size:16px;
+padding:12px 25px;
+}
+
+/* GENERAL SECTIONS */
+section{
+padding:60px 20px;
+max-width:1100px;
+margin:auto;
 }
 
 .progress{
@@ -68,6 +78,7 @@ font-weight:bold;
 color:red;
 }
 
+/* CARDS */
 .modeles{
 display:flex;
 flex-wrap:wrap;
@@ -108,7 +119,6 @@ color:white;
 cursor:pointer;
 border-radius:6px;
 font-weight:bold;
-margin:10px 5px;
 }
 
 input{
@@ -117,7 +127,6 @@ margin:10px 0;
 width:100%;
 border-radius:6px;
 border:none;
-font-size:14px;
 }
 
 .resume{
@@ -127,14 +136,73 @@ border-radius:10px;
 margin-top:20px;
 }
 
-.nav-buttons{
-margin-top:20px;
+/* POURQUOI NOUS */
+.pourquoi{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+gap:20px;
 text-align:center;
 }
 
-@keyframes fadeIn{
-from{opacity:0;transform:translateY(10px);}
-to{opacity:1;transform:translateY(0);}
+.bloc{
+background:#1c1c1c;
+padding:20px;
+border-radius:12px;
+}
+
+/* AVIS */
+.avis{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:20px;
+}
+
+.avis-card{
+background:#1c1c1c;
+padding:20px;
+border-radius:12px;
+font-size:14px;
+}
+
+/* LOCALISATION */
+.localisation{
+background:#111;
+text-align:center;
+padding:60px 20px;
+}
+
+iframe{
+width:100%;
+height:350px;
+border-radius:15px;
+border:0;
+margin-top:20px;
+}
+
+/* FOOTER */
+footer{
+background:#000;
+padding:30px;
+text-align:center;
+color:#aaa;
+}
+
+/* CALL BUTTON MOBILE */
+.call-fixed{
+position:fixed;
+bottom:15px;
+right:15px;
+background:red;
+color:white;
+padding:15px;
+border-radius:50px;
+font-weight:bold;
+box-shadow:0 0 15px red;
+z-index:1000;
+}
+
+@media(max-width:768px){
+.modeles{flex-direction:column;align-items:center;}
 }
 </style>
 </head>
@@ -149,62 +217,71 @@ to{opacity:1;transform:translateY(0);}
 
 <div class="hero">
 <h2>Location Véhicules Sans Permis Aixam</h2>
-<p>Votre spécialiste dans les Alpes-Maritimes</p>
+<p>Louez dès 14 ans en toute simplicité</p>
+<a href="#modeles"><button>Choisir mon véhicule</button></a>
+<a href="tel:0624224960"><button>📞 Appeler maintenant</button></a>
 </div>
 
-<div class="progress">Étape 1 / 3</div>
-
-<section id="etape1" class="active">
-<h2 style="text-align:center;">Choisissez votre modèle</h2>
+<section id="modeles">
+<h2 style="text-align:center;">Nos Modèles</h2>
 <div class="modeles" id="container"></div>
 </section>
 
-<section id="etape2">
-<h2>Choisissez votre période de location</h2>
+<section>
+<h2>Choisissez votre période</h2>
 <p id="modeleInfo"></p>
-
 <input type="text" id="dateRange" placeholder="Sélectionnez vos dates">
-
-<button onclick="calculer()">Calculer</button>
-
+<button onclick="calculer()">Calculer le prix</button>
 <div class="resume" id="resume"></div>
-
-<div class="nav-buttons">
-<button onclick="changerEtape('etape1',1)">⬅ Retour</button>
-<button onclick="allerEtape3()">Continuer ➡</button>
-</div>
 </section>
 
-<section id="etape3">
-<h2>Confirmation</h2>
-<div class="resume" id="recap"></div>
-
-<input type="text" placeholder="Nom">
-<input type="email" placeholder="Email">
-<input type="tel" placeholder="Téléphone">
-
-<div class="nav-buttons">
-<button onclick="changerEtape('etape2',2)">⬅ Retour</button>
-<button onclick="envoyer()">Envoyer la demande</button>
-</div>
+<section class="pourquoi">
+<h2 style="grid-column:1/-1;">Pourquoi louer chez nous ?</h2>
+<div class="bloc">✔ Concession Officielle Aixam</div>
+<div class="bloc">✔ Véhicules révisés et garantis</div>
+<div class="bloc">✔ Assistance 24h/24</div>
+<div class="bloc">✔ Service client local à Grasse</div>
 </section>
 
-<!-- Flatpickr JS -->
+<section class="avis">
+<h2 style="grid-column:1/-1;">Avis Clients</h2>
+<div class="avis-card">⭐️⭐️⭐️⭐️⭐️<br>Service rapide et professionnel !</div>
+<div class="avis-card">⭐️⭐️⭐️⭐️⭐️<br>Très bon accueil et véhicule impeccable.</div>
+<div class="avis-card">⭐️⭐️⭐️⭐️⭐️<br>Je recommande vivement Jean Cauvin Mobilités.</div>
+</section>
+
+<div class="localisation">
+<h2>Nous localiser</h2>
+<p>📍 185 Route de Cannes, 06130 Grasse</p>
+<p>📞 <a href="tel:0624224960" style="color:red;">06 24 22 49 60</a></p>
+<a href="https://www.google.com/maps/search/?api=1&query=185+Route+de+Cannes+06130+Grasse" target="_blank">
+<button>Ouvrir dans Google Maps</button>
+</a>
+<iframe src="https://www.google.com/maps?q=185+Route+de+Cannes+06130+Grasse&output=embed"></iframe>
+</div>
+
+<footer>
+Aixam Jean Cauvin Mobilités – Grasse<br>
+Concession Agréée Officielle
+</footer>
+
+<a href="tel:0624224960" class="call-fixed">📞</a>
+
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-
 <script>
-const gamme = [
-{nom:"Minauto Access", prix:25, img:"minauto.jpg"},
-{nom:"City Pack", prix:30, img:"citypack.jpg"},
-{nom:"City Sport", prix:33, img:"citysport.jpg"},
-{nom:"Coupé Sport", prix:36, img:"coupesport.jpg"},
-{nom:"Coupé GTI", prix:40, img:"coupegti.jpg"},
-{nom:"Crossover Premium", prix:42, img:"crossover.jpg"},
-{nom:"e-City Sport", prix:45, img:"ecity.jpg"}
+flatpickr("#dateRange",{mode:"range",minDate:"today"});
+
+const gamme=[
+{nom:"Minauto Access",prix:25,img:"minauto.jpg"},
+{nom:"City Pack",prix:30,img:"citypack.jpg"},
+{nom:"City Sport",prix:33,img:"citysport.jpg"},
+{nom:"Coupé Sport",prix:36,img:"coupesport.jpg"},
+{nom:"Coupé GTI",prix:40,img:"coupegti.jpg"},
+{nom:"Crossover Premium",prix:42,img:"crossover.jpg"},
+{nom:"e-City Sport",prix:45,img:"ecity.jpg"}
 ];
 
-const container = document.getElementById("container");
-
+const container=document.getElementById("container");
 gamme.forEach(v=>{
 container.innerHTML+=`
 <div class="card">
@@ -212,63 +289,26 @@ container.innerHTML+=`
 <div class="card-content">
 <h3>${v.nom}</h3>
 <p>${v.prix}€ / jour</p>
-<button onclick="choisirModele('${v.nom}',${v.prix})">Choisir</button>
+<button onclick="selectModele('${v.nom}',${v.prix})">Choisir</button>
 </div>
-</div>
-`;
+</div>`;
 });
 
-let modeleChoisi="", prixJournalier=0, totalFinal=0, joursFinal=0;
+let prixJournalier=0;
 
-flatpickr("#dateRange", {
-mode: "range",
-dateFormat: "Y-m-d",
-minDate: "today"
-});
-
-function choisirModele(modele,prix){
-modeleChoisi=modele;
+function selectModele(nom,prix){
 prixJournalier=prix;
-document.getElementById("modeleInfo").innerText=
-modeleChoisi+" - "+prixJournalier+"€ / jour";
-changerEtape("etape2",2);
+document.getElementById("modeleInfo").innerText=nom+" - "+prix+"€/jour";
+window.scrollTo({top:500,behavior:'smooth'});
 }
 
 function calculer(){
 const dates=document.getElementById("dateRange").value.split(" to ");
-if(dates.length<2){ alert("Choisissez une période."); return; }
-
-const debut=new Date(dates[0]);
-const fin=new Date(dates[1]);
-const diff=(fin-debut)/(1000*3600*24);
-
-joursFinal=diff;
-totalFinal=diff*prixJournalier;
-
+if(dates.length<2){alert("Sélectionnez une période.");return;}
+const diff=(new Date(dates[1])-new Date(dates[0]))/(1000*3600*24);
+const total=diff*prixJournalier;
 document.getElementById("resume").innerHTML=
-"Durée : "+joursFinal+" jours<br>Total : "+totalFinal+"€";
-}
-
-function allerEtape3(){
-if(totalFinal===0){ alert("Calculez le prix."); return; }
-
-document.getElementById("recap").innerHTML=
-"Modèle : "+modeleChoisi+
-"<br>Durée : "+joursFinal+" jours"+
-"<br>Total : "+totalFinal+"€";
-
-changerEtape("etape3",3);
-}
-
-function envoyer(){
-alert("Votre demande a été envoyée !");
-location.reload();
-}
-
-function changerEtape(id,step){
-document.querySelectorAll("section").forEach(s=>s.classList.remove("active"));
-document.getElementById(id).classList.add("active");
-document.querySelector(".progress").innerText="Étape "+step+" / 3";
+"Durée : "+diff+" jours<br>Total estimé : "+total+" €";
 }
 </script>
 
